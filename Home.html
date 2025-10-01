@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libertinus+Serif+Display&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libertinus+Serif+Display&family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Popular Silk: Web Design Team</title>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#7d40ff",
+            },
+            fontFamily: {
+              playfair: ['"Playfair Display"', "serif"],
+              libertinus: ['"Libertinus Serif Display"', "system-ui"],
+              outfit: ['"Outfit"', "sans-serif"],
+            },
+            backgroundImage: {
+              "hero-gradient":
+                "linear-gradient(135deg, #d4f1f4 0%, #e8f4f8 20%, #f5e6f1 45%, #7d40ff1c 80%, #ffd6e7 85%, #ffffff 100%)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .playfair-display-regular {
+        font-family: "Playfair Display", serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      .playfair-display-bold {
+        font-family: "Playfair Display", serif;
+        font-optical-sizing: auto;
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      .playfair-display-italic {
+        font-family: "Playfair Display", serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: italic;
+      }
+
+      .libertinus-serif-display-regular {
+        font-family: "Libertinus Serif Display", system-ui;
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      /* Animated border for button */
+      @keyframes border-spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .animated-border {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .animated-border::before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        background: conic-gradient(
+          from 0deg,
+          #7d40ff,
+          #ff40d4,
+          #40ffff,
+          #7d40ff
+        );
+        border-radius: inherit;
+        animation: border-spin 3s linear infinite;
+        z-index: -1;
+      }
+
+      .animated-border::after {
+        content: "";
+        position: absolute;
+        inset: 2px;
+        background: #7d40ff;
+        border-radius: inherit;
+        z-index: -1;
+      }
+
+      /* Smooth transitions */
+      * {
+        transition: all 0.3s ease;
+      }
+
+      /* Dropdown menu */
+      .dropdown-menu {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+      }
+
+      .dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Hero SVG Animations */
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0) rotate(-12deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(-12deg);
+        }
+      }
+
+      @keyframes bounce-slow {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      .animate-float {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .animate-bounce-slow {
+        animation: bounce-slow 2.5s ease-in-out infinite;
+      }
+
+      /* Mobile menu animation */
+      .mobile-menu {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+
+      .mobile-menu.active {
+        max-height: 500px;
+      }
+      #navbar {
+        transition: all 0.3 ease-in-out;
+      }
+
+      /* Navbar shadow on scroll */
+      .navbar-scrolled {
+        max-width: 1250px;
+        width: calc(100% - 2rem);
+        background: rgba(255, 255, 255, 0.664);
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 30px;
+        top: 10px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+      
+      @media (max-width: 768px) {
+        .navbar-scrolled {
+          border-radius: 20px;
+          width: calc(100% - 1rem);
+        }
+      }
+      .white-overlay::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0) 100%);
+            pointer-events: none;
+        }
+    </style>
+  </head>
+  <body class="min-h-screen bg-gray-50">
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed backdrop-blur-sm  left-0 right-0 z-50">
+      <div class="max-w-[1250px] mx-auto px-4 sm:px-6 py-3 sm:py-4">
+        <div class="flex items-center justify-between">
+          <!-- Logo -->
+          <div class="flex-shrink-0">
+            <h1
+              class="playfair-display-bold text-2xl sm:text-2xl md:text-[35px] text-gray-900"
+            >
+              Popular
+              <span
+                style="font-style: italic"
+                class="playfair-display-bold text-primary"
+                >Silk</span
+              >
+            </h1>
+          </div>
+
+          <!-- Desktop Menu -->
+          <div class="hidden lg:flex items-center space-x-6 xl:space-x-8">
+            <a href="#home" class="text-gray-700 hover:text-primary font-medium"
+              >Home</a
+            >
+            <a
+              href="#project"
+              class="text-gray-700 hover:text-primary font-medium"
+              >Project</a
+            >
+
+            <!-- Service Dropdown -->
+            <div class="relative dropdown">
+              <button
+                class="text-gray-700 hover:text-primary font-medium flex items-center gap-1"
+              >
+                Service
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+
+              <!-- Dropdown Menu -->
+              <div
+                class="dropdown-menu absolute top-full left-0 mt-2 w-72 bg-white rounded-xl shadow-xl border border-gray-100 py-3"
+              >
+                <a
+                  href="#ui-ux"
+                  class="flex items-start gap-3 px-4 py-3 hover:bg-primary hover:bg-opacity-5 group"
+                >
+                  <div
+                    class="w-8 h-8 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-opacity-20"
+                  >
+                    <svg
+                      class="w-4 h-4 text-primary"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4
+                      class="text-sm font-semibold text-gray-900 group-hover:text-primary"
+                    >
+                      UI/UX Design
+                    </h4>
+                    <p class="text-xs text-gray-500 mt-0.5">
+                      Beautiful user experiences
+                    </p>
+                  </div>
+                </a>
+
+                <a
+                  href="#web-design"
+                  class="flex items-start gap-3 px-4 py-3 hover:bg-primary hover:bg-opacity-5 group"
+                >
+                  <div
+                    class="w-8 h-8 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-opacity-20"
+                  >
+                    <svg
+                      class="w-4 h-4 text-primary"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4
+                      class="text-sm font-semibold text-gray-900 group-hover:text-primary"
+                    >
+                      Web Design
+                    </h4>
+                    <p class="text-xs text-gray-500 mt-0.5">
+                      Stunning responsive websites
+                    </p>
+                  </div>
+                </a>
+
+                <a
+                  href="#mobile-app"
+                  class="flex items-start gap-3 px-4 py-3 hover:bg-primary hover:bg-opacity-5 group"
+                >
+                  <div
+                    class="w-8 h-8 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-opacity-20"
+                  >
+                    <svg
+                      class="w-4 h-4 text-primary"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4
+                      class="text-sm font-semibold text-gray-900 group-hover:text-primary"
+                    >
+                      Mobile App Design
+                    </h4>
+                    <p class="text-xs text-gray-500 mt-0.5">
+                      Seamless mobile experiences
+                    </p>
+                  </div>
+                </a>
+
+                <a
+                  href="#branding"
+                  class="flex items-start gap-3 px-4 py-3 hover:bg-primary hover:bg-opacity-5 group"
+                >
+                  <div
+                    class="w-8 h-8 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-opacity-20"
+                  >
+                    <svg
+                      class="w-4 h-4 text-primary"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4
+                      class="text-sm font-semibold text-gray-900 group-hover:text-primary"
+                    >
+                      Brand Identity
+                    </h4>
+                    <p class="text-xs text-gray-500 mt-0.5">
+                      Memorable brand experiences
+                    </p>
+                  </div>
+                </a>
+
+                <a
+                  href="#development"
+                  class="flex items-start gap-3 px-4 py-3 hover:bg-primary hover:bg-opacity-5 group"
+                >
+                  <div
+                    class="w-8 h-8 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-opacity-20"
+                  >
+                    <svg
+                      class="w-4 h-4 text-primary"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4
+                      class="text-sm font-semibold text-gray-900 group-hover:text-primary"
+                    >
+                      Web Development
+                    </h4>
+                    <p class="text-xs text-gray-500 mt-0.5">
+                      Powerful scalable solutions
+                    </p>
+                  </div>
+                </a>
+
+                <a
+                  href="#optimization"
+                  class="flex items-start gap-3 px-4 py-3 hover:bg-primary hover:bg-opacity-5 group"
+                >
+                  <div
+                    class="w-8 h-8 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-opacity-20"
+                  >
+                    <svg
+                      class="w-4 h-4 text-primary"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4
+                      class="text-sm font-semibold text-gray-900 group-hover:text-primary"
+                    >
+                      Performance Optimization
+                    </h4>
+                    <p class="text-xs text-gray-500 mt-0.5">
+                      Lightning fast experiences
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <a
+              href="#pricing"
+              class="text-gray-700 hover:text-primary font-medium"
+              >Pricing</a
+            >
+            <a
+              href="#about"
+              class="text-gray-700 hover:text-primary font-medium"
+              >About</a
+            >
+          </div>
+
+          <!-- Contact Button -->
+          <div class="hidden md:block">
+            <button
+              class="animated-border px-6 py-2.5 rounded-full text-white font-medium relative z-10"
+            >
+              Contact Us
+            </button>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobileMenuBtn"
+            class="md:hidden text-gray-700 focus:outline-none"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                id="menuIcon"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+              <path
+                id="closeIcon"
+                class="hidden"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu  md:hidden">
+          <div class="pt-4 pb-3 space-y-3">
+            <a
+              href="#home"
+              class="block text-gray-700 hover:text-primary font-medium py-2"
+              >Home</a
+            >
+            <a
+              href="#project"
+              class="block text-gray-700 hover:text-primary font-medium py-2"
+              >Project</a
+            >
+
+            <!-- Mobile Service Submenu -->
+            <div>
+              <button
+                id="serviceBtnMobile"
+                class="block w-full text-left text-gray-700 hover:text-primary font-medium py-2 flex items-center justify-between"
+              >
+                Service
+                <svg
+                  class="w-4 h-4 transform transition-transform"
+                  id="serviceArrow"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div
+                id="mobileServiceMenu"
+                class="mobile-menu pl-4 space-y-1 mt-2"
+              >
+                <a
+                  href="#ui-ux"
+                  class="flex items-center gap-2 py-2 hover:text-primary"
+                >
+                  <div
+                    class="w-6 h-6 bg-primary bg-opacity-10 rounded flex items-center justify-center flex-shrink-0"
+                  >
+                    <svg
+                      class="w-3 h-3 text-primary"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="text-sm text-gray-700">UI/UX Design</span>
+                </a>
+
+                <a
+                  href="#web-design"
+                  class="flex items-center gap-2 py-2 hover:text-primary"
+                >
+                  <div
+                    class="w-6 h-6 bg-primary bg-opacity-10 rounded flex items-center justify-center flex-shrink-0"
+                  >
+                    <svg
+                      class="w-3 h-3 text-primary"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="text-sm text-gray-700">Web Design</span>
+                </a>
+
+                <a
+                  href="#mobile-app"
+                  class="flex items-center gap-2 py-2 hover:text-primary"
+                >
+                  <div
+                    class="w-6 h-6 bg-primary bg-opacity-10 rounded flex items-center justify-center flex-shrink-0"
+                  >
+                    <svg
+                      class="w-3 h-3 text-primary"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="text-sm text-gray-700">Mobile App Design</span>
+                </a>
+
+                <a
+                  href="#branding"
+                  class="flex items-center gap-2 py-2 hover:text-primary"
+                >
+                  <div
+                    class="w-6 h-6 bg-primary bg-opacity-10 rounded flex items-center justify-center flex-shrink-0"
+                  >
+                    <svg
+                      class="w-3 h-3 text-primary"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="text-sm text-gray-700">Brand Identity</span>
+                </a>
+
+                <a
+                  href="#development"
+                  class="flex items-center gap-2 py-2 hover:text-primary"
+                >
+                  <div
+                    class="w-6 h-6 bg-primary bg-opacity-10 rounded flex items-center justify-center flex-shrink-0"
+                  >
+                    <svg
+                      class="w-3 h-3 text-primary"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="text-sm text-gray-700">Web Development</span>
+                </a>
+
+                <a
+                  href="#optimization"
+                  class="flex items-center gap-2 py-2 hover:text-primary"
+                >
+                  <div
+                    class="w-6 h-6 bg-primary bg-opacity-10 rounded flex items-center justify-center flex-shrink-0"
+                  >
+                    <svg
+                      class="w-3 h-3 text-primary"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="text-sm text-gray-700"
+                    >Performance Optimization</span
+                  >
+                </a>
+              </div>
+            </div>
+
+            <a
+              href="#pricing"
+              class="block text-gray-700 hover:text-primary font-medium py-2"
+              >Pricing</a
+            >
+            <a
+              href="#about"
+              class="block text-gray-700 hover:text-primary font-medium py-2"
+              >About</a
+            >
+            <button
+              class="w-full animated-border px-6 py-2.5 rounded-full text-white font-medium mt-4"
+            >
+              Contact Us
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Service Modal -->
+    <div
+      id="serviceModal"
+      class="fixed inset-0 bg-black bg-opacity-50 modal-backdrop hidden z-50 flex items-center justify-center p-4"
+    >
+      <div
+        class="modal-content bg-white rounded-2xl max-w-4xl w-full max-h-[80vh] overflow-y-auto"
+      >
+        <div class="p-6 md:p-8">
+          <!-- Modal Header -->
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="playfair-display-bold text-3xl text-gray-900">
+              Our Services
+            </h2>
+            <button id="closeModal" class="text-gray-400 hover:text-gray-600">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Services Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Service 1 -->
+            <div
+              class="group p-6 rounded-xl border-2 border-gray-200 hover:border-primary cursor-pointer"
+            >
+              <div
+                class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="playfair-display-bold text-xl mb-2 text-gray-900">
+                UI/UX Design
+              </h3>
+              <p class="text-gray-600">
+                Creating intuitive and beautiful user experiences that engage
+                and delight your audience.
+              </p>
+            </div>
+
+            <!-- Service 2 -->
+            <div
+              class="group p-6 rounded-xl border-2 border-gray-200 hover:border-primary cursor-pointer"
+            >
+              <div
+                class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="playfair-display-bold text-xl mb-2 text-gray-900">
+                Web Design
+              </h3>
+              <p class="text-gray-600">
+                Crafting stunning, responsive websites that make lasting
+                impressions and drive results.
+              </p>
+            </div>
+
+            <!-- Service 3 -->
+            <div
+              class="group p-6 rounded-xl border-2 border-gray-200 hover:border-primary cursor-pointer"
+            >
+              <div
+                class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="playfair-display-bold text-xl mb-2 text-gray-900">
+                Mobile App Design
+              </h3>
+              <p class="text-gray-600">
+                Designing seamless mobile experiences that users love across all
+                devices and platforms.
+              </p>
+            </div>
+
+            <!-- Service 4 -->
+            <div
+              class="group p-6 rounded-xl border-2 border-gray-200 hover:border-primary cursor-pointer"
+            >
+              <div
+                class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="playfair-display-bold text-xl mb-2 text-gray-900">
+                Brand Identity
+              </h3>
+              <p class="text-gray-600">
+                Building memorable brand identities that resonate with your
+                target audience and stand out.
+              </p>
+            </div>
+
+            <!-- Service 5 -->
+            <div
+              class="group p-6 rounded-xl border-2 border-gray-200 hover:border-primary cursor-pointer"
+            >
+              <div
+                class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="playfair-display-bold text-xl mb-2 text-gray-900">
+                Web Development
+              </h3>
+              <p class="text-gray-600">
+                Building powerful, scalable web applications with modern
+                technologies and best practices.
+              </p>
+            </div>
+
+            <!-- Service 6 -->
+            <div
+              class="group p-6 rounded-xl border-2 border-gray-200 hover:border-primary cursor-pointer"
+            >
+              <div
+                class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="playfair-display-bold text-xl mb-2 text-gray-900">
+                Performance Optimization
+              </h3>
+              <p class="text-gray-600">
+                Optimizing your digital products for speed, efficiency, and
+                exceptional user experience.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service Modal -->
+    <div
+      id="serviceModal"
+      class="fixed inset-0 bg-black bg-opacity-50 modal-backdrop hidden z-50 flex items-center justify-center p-4"
+    >
+      <div
+        class="modal-content bg-white rounded-2xl max-w-4xl w-full max-h-[80vh] overflow-y-auto"
+      >
+        <div class="p-6 md:p-8">
+          <!-- Modal Header -->
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="playfair-display-bold text-3xl text-gray-900">
+              Our Services
+            </h2>
+            <button id="closeModal" class="text-gray-400 hover:text-gray-600">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Services Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Service 1 -->
+            <div
+              class="group p-6 rounded-xl border-2 border-gray-200 hover:border-primary cursor-pointer"
+            >
+              <div
+                class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="playfair-display-bold text-xl mb-2 text-gray-900">
+                UI/UX Design
+              </h3>
+              <p class="text-gray-600">
+                Creating intuitive and beautiful user experiences that engage
+                and delight your audience.
+              </p>
+            </div>
+
+            <!-- Service 2 -->
+            <div
+              class="group p-6 rounded-xl border-2 border-gray-200 hover:border-primary cursor-pointer"
+            >
+              <div
+                class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="playfair-display-bold text-xl mb-2 text-gray-900">
+                Web Design
+              </h3>
+              <p class="text-gray-600">
+                Crafting stunning, responsive websites that make lasting
+                impressions and drive results.
+              </p>
+            </div>
+
+            <!-- Service 3 -->
+            <div
+              class="group p-6 rounded-xl border-2 border-gray-200 hover:border-primary cursor-pointer"
+            >
+              <div
+                class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="playfair-display-bold text-xl mb-2 text-gray-900">
+                Mobile App Design
+              </h3>
+              <p class="text-gray-600">
+                Designing seamless mobile experiences that users love across all
+                devices and platforms.
+              </p>
+            </div>
+
+            <!-- Service 4 -->
+            <div
+              class="group p-6 rounded-xl border-2 border-gray-200 hover:border-primary cursor-pointer"
+            >
+              <div
+                class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="playfair-display-bold text-xl mb-2 text-gray-900">
+                Brand Identity
+              </h3>
+              <p class="text-gray-600">
+                Building memorable brand identities that resonate with your
+                target audience and stand out.
+              </p>
+            </div>
+
+            <!-- Service 5 -->
+            <div
+              class="group p-6 rounded-xl border-2 border-gray-200 hover:border-primary cursor-pointer"
+            >
+              <div
+                class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="playfair-display-bold text-xl mb-2 text-gray-900">
+                Web Development
+              </h3>
+              <p class="text-gray-600">
+                Building powerful, scalable web applications with modern
+                technologies and best practices.
+              </p>
+            </div>
+
+            <!-- Service 6 -->
+            <div
+              class="group p-6 rounded-xl border-2 border-gray-200 hover:border-primary cursor-pointer"
+            >
+              <div
+                class="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mb-4"
+              >
+                <svg
+                  class="w-6 h-6 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="playfair-display-bold text-xl mb-2 text-gray-900">
+                Performance Optimization
+              </h3>
+              <p class="text-gray-600">
+                Optimizing your digital products for speed, efficiency, and
+                exceptional user experience.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class=" h-[70vh] md:h-screen bg-hero-gradient flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 lg:pt-10 pb-10 relative overflow-hidden white-overlay">
+        
+      <!-- Decorative Elements -->
+      <div class="absolute inset-0 pointer-events-none z-0">
+          <!-- Notebook -->
+          <div class="absolute left-[5%] sm:left-[6%] lg:left-[8%] bottom-[15%] sm:bottom-[28%] lg:bottom-[35%] w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 -rotate-12 animate-float">
+              <img src="herosvg1.svg" alt="Hero Decoration" class="w-full h-full object-contain">
+          </div>
+          
+          <!-- Shapes -->
+          <div class="absolute right-[5%] sm:right-[6%] lg:right-[8%] bottom-[10%] sm:bottom-[23%] lg:bottom-[25%] w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 animate-bounce-slow">
+              <img src="herosvg2.svg" alt="Hero Decoration" class="w-full h-full object-contain">
+          </div>
+      </div>
+
+      <!-- Content -->
+      <div class="relative z-10 flex flex-col items-center w-full">
+          <!-- Badge -->
+          <div class="inline-flex items-center gap-2 bg-white/70 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-6 sm:mb-8 text-gray-700">
+              <svg class="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+              <span class="text-xs sm:text-sm">Premium Web Design Team</span>
+          </div>
+
+          <!-- Heading -->
+          <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-outfit font-medium text-center text-gray-900 leading-tight max-w-5xl mb-4 sm:mb-6 px-4">
+            We Build Custom<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Websites That Convert</span>
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 text-center max-w-2xl leading-relaxed mb-6 sm:mb-8 px-4 sm:px-6">
+            Custom Websites, Branding & Search Engine Optimization
+          </p>
+
+          <!-- Description -->
+          <p class="text-xs sm:text-sm md:text-base text-gray-500 text-center max-w-xl leading-relaxed mb-8 sm:mb-10 px-6 sm:px-8">
+            Transform your online presence with stunning, responsive websites designed to engage your audience and drive results
+          </p>
+      </div>
+  </div>
+
+    <div class="pt-24 px-6">
+      <div class="max-w-[1250px] mx-auto">
+
+        <section id="project" class="py-20 min-h-screen">
+          <h2 class="playfair-display-bold text-4xl mb-4">Our Projects</h2>
+          <p class="text-gray-600">Showcasing our best work...</p>
+        </section>
+
+        <section id="pricing" class="py-20 min-h-screen">
+          <h2 class="playfair-display-bold text-4xl mb-4">Pricing</h2>
+          <p class="text-gray-600">Flexible plans for every need...</p>
+        </section>
+
+        <section id="about" class="py-20 min-h-screen">
+          <h2 class="playfair-display-bold text-4xl mb-4">About Us</h2>
+          <p class="text-gray-600">Learn more about our team...</p>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      // Navbar scroll effect
+      const navbar = document.getElementById("navbar");
+      let lastScroll = 0;
+
+      window.addEventListener("scroll", () => {
+        const currentScroll = window.pageYOffset;
+
+        if (currentScroll > 20) {
+          navbar.classList.add("navbar-scrolled");
+        } else {
+          navbar.classList.remove("navbar-scrolled");
+        }
+
+        lastScroll = currentScroll;
+      });
+
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const menuIcon = document.getElementById("menuIcon");
+      const closeIcon = document.getElementById("closeIcon");
+
+      function toggleMobileMenu() {
+        mobileMenu.classList.toggle("active");
+        menuIcon.classList.toggle("hidden");
+        closeIcon.classList.toggle("hidden");
+      }
+
+      mobileMenuBtn.addEventListener("click", toggleMobileMenu);
+
+      // Mobile Service Submenu Toggle
+      const serviceBtnMobile = document.getElementById("serviceBtnMobile");
+      const mobileServiceMenu = document.getElementById("mobileServiceMenu");
+      const serviceArrow = document.getElementById("serviceArrow");
+
+      serviceBtnMobile.addEventListener("click", () => {
+        mobileServiceMenu.classList.toggle("active");
+        serviceArrow.classList.toggle("rotate-180");
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll("#mobileMenu a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (mobileMenu.classList.contains("active")) {
+            toggleMobileMenu();
+          }
+        });
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
